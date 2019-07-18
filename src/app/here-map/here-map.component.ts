@@ -67,17 +67,14 @@ export class HereMapComponent implements OnInit {
         ui.addBubble(bubble);
 
       });
-      // area overmarker
       this.map.addObject(new H.map.Circle(
-        // The central point of the circle
         { lat: 34.023370, lng: -118.274240 },
-        // The radius of the circle in meters
         200,
         {
           style: {
-            strokeColor: 'rgba(290, 0, 0, 0.4)', // Color of the perimeter
+            strokeColor: 'rgba(290, 0, 0, 0.4)', 
             lineWidth: 1,
-            fillColor: 'rgba(290, 0, 0, 0.4)'  // Color of the circle
+            fillColor: 'rgba(290, 0, 0, 0.4)' 
           }
         }
       ));
@@ -169,6 +166,7 @@ export class HereMapComponent implements OnInit {
     }, 100);
   }
 
+  //Route Finding
   calcRoute() {
     // Create the parameters for the routing request:
     var routingParameters = {
@@ -177,14 +175,13 @@ export class HereMapComponent implements OnInit {
       // The start point of the route:
       'waypoint0': 'geo!34.021741,-118.287356',
       // The end point of the route:
-      'waypoint1': 'geo!34.031721,-118.278455',
+      'waypoint1': 'geol!34.065980,--118.309980',
       // To retrieve the shape of the route we choose the route
       // representation mode 'display'
       'representation': 'display',
       // avoid areas
       'avoidareas': '34.027568,-118.284179;34.027266,-118.283707'
     };
-
 
     //Results
     // Define a callback function to process the routing response:

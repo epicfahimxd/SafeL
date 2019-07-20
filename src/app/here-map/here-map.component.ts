@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
+
 var fist = new H.map.Icon("../assets/fist.png", { size: { w: 35, h: 35 } });
 var rob = new H.map.Icon("../assets/bandit.png", { size: { w: 35, h: 35 } });
 var theft = new H.map.Icon("../assets/theft.png", { size: { w: 35, h: 35 } });
@@ -10,6 +11,8 @@ declare var H: any;
   styleUrls: ['./here-map.component.scss']
 })
 export class HereMapComponent implements OnInit {
+  @Input()
+ public address: any;
   @ViewChild("map")
   public mapElement: ElementRef;
   @Input()
@@ -24,7 +27,14 @@ export class HereMapComponent implements OnInit {
   private map: any;
   private router: any;
   public defaultLayers: any;
-  public constructor() { }
+  public constructor() {
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.address.currentValue){
+      console.log('ready for navigation');
+      this.calcRoute(changes.address.currentValue);
+    }
+  }
   public ngOnInit() {
     this.platform = new H.service.Platform({
       'apikey': 'gqbD6bqWeTXAP-G66gP2olsUMYl5yY3W-3ew7nR-z5g'
@@ -64,10 +74,11 @@ export class HereMapComponent implements OnInit {
             content: event.target.getData()
           }
         );
+        
         ui.addBubble(bubble);
-
+        
       });
-      this.map.addObject(new H.map.Circle(
+           this.map.addObject(new H.map.Circle(
         { lat: 34.023370, lng: -118.274240 },
         200,
         {
@@ -160,24 +171,23 @@ export class HereMapComponent implements OnInit {
         );
         ui.addBubble(bubble);
       });
-
       this.map.addObjects([marker1, marker2, marker3, marker4, marker5, marker6]);
+     
       //let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
     }, 100);
   }
 
   //Route Finding
-  calcRoute() {
-    // Create the parameters for the routing request:
+  calcRoute(address) {
+  const waypoint0 = `geo!${this.lat},${this.lng}`;
+  const waypoint1 = `geo!${address.Latitude},${address.Longitude}`;
     var routingParameters = {
       // The routing mode:
       'mode': 'fastest;car',
       // The start point of the route:
-      'waypoint0': 'geo!34.021741,-118.287356',
-      // The end point of the route:
-      'waypoint1': 'geol!34.065980,--118.309980',
-      // To retrieve the shape of the route we choose the route
-      // representation mode 'display'
+      'waypoint0': waypoint0,
+     // The end point of the route:
+     'waypoint1': waypoint1,
       'representation': 'display',
       // avoid areas
       'avoidareas': '34.027568,-118.284179;34.027266,-118.283707'
@@ -222,6 +232,7 @@ export class HereMapComponent implements OnInit {
         });
         // Add the route polyline and the two markers to the map:
         this.map.addObjects([routeLine, startMarker, endMarker]);
+        
         // Set the map's viewport to make the whole route visible:
         this.map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
       }

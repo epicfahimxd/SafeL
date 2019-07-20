@@ -1,14 +1,14 @@
-<ion-header>
-    <ion-toolbar>
-      <ion-searchbar (ionChange)="onChange($event)">
-      </ion-searchbar>
-      <p *ngFor="let location of results">
-          {{location.address.houseNumber}} {{location.address.street}} {{location.address.city}}, {{location.address.state}} {{location.address.postalCode}}
+<ion-content>
+  <div id="search">
+    <ion-searchbar id="searchbor" (ionChange)="onChange($event)">
+    </ion-searchbar>
+    <div id="results" *ngIf = "results.length > 0 && notrouting">
+
+      <p *ngFor="let location of results" (click) = "navigate(location.address)">
+        {{location.address.houseNumber}} {{location.address.street}} {{location.address.city}},
+        {{location.address.state}} {{location.address.postalCode}}
       </p>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <here-map appId="JIhWsj5ocJ55IpNQqmiM" appCode="Dl3qLVq0RJn-RBmD5LRviw" lat="34.022350" lng="-118.285118"></here-map>
-  </ion-content>
-  
+    </div>
+  </div>
+  <here-map [address]="target" lat="34.022350" lng="-118.285118"></here-map>
+</ion-content>

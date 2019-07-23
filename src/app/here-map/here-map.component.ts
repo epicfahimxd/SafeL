@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
+import { temporaryDeclaration } from '@angular/compiler/src/compiler_util/expression_converter';
 
 var fist = new H.map.Icon("../assets/fist.png", { size: { w: 35, h: 35 } });
 var rob = new H.map.Icon("../assets/bandit.png", { size: { w: 35, h: 35 } });
@@ -54,11 +55,8 @@ export class HereMapComponent implements OnInit {
           tilt: 45,
           center: { lat: this.lat, lng: this.lng }
         });
-      // Create the default UI:
       var ui = H.ui.UI.createDefault(this.map, this.defaultLayers);
-      // Enable the event system on the map instance:
       var mapEvents = new H.mapevents.MapEvents(this.map);
-      // Instantiate the default behavior, providing the mapEvents object: 
       var behavior = new H.mapevents.Behavior(mapEvents);
       const marker1 = new H.map.Marker({ lat: 34.023370, lng: -118.274240 }, { icon: theft });
       marker1.setData("<p>Theft <br> 900 BLOCK W 30TH ST</p>");
@@ -106,6 +104,17 @@ export class HereMapComponent implements OnInit {
         );
         ui.addBubble(bubble);
       });
+      this.map.addObject(new H.map.Circle(
+        { lat: 34.021960, lng: -118.27997 },
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)', 
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)' 
+          }
+        }
+      ));
 
 
       const marker3 = new H.map.Marker({ lat: 34.026270, lng: -118.298850 }, { icon: rob });
@@ -123,6 +132,17 @@ export class HereMapComponent implements OnInit {
         );
         ui.addBubble(bubble);
       });
+      this.map.addObject(new H.map.Circle(
+        { lat: 34.026270, lng: -118.298850 },
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)', 
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)' 
+          }
+        }
+      ));
 
       const marker4 = new H.map.Marker({ lat: 34.022130, lng: -118.292300 }, { icon: theft });
       marker4.setData("<p>Theft <br> 1100 BLOCK W 36TH PL </p>");
@@ -139,6 +159,17 @@ export class HereMapComponent implements OnInit {
         );
         ui.addBubble(bubble);
       });
+      this.map.addObject(new H.map.Circle(
+        { lat: 34.022130, lng: -118.292300 },
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)', 
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)' 
+          }
+        }
+      ));
 
       const marker5 = new H.map.Marker({ lat: 34.023369, lng: -118.274239 }, { icon: rob });
       marker5.setData("<p>Robbery <br> 1500 BLOCK W 30TH ST </p>");
@@ -155,6 +186,17 @@ export class HereMapComponent implements OnInit {
         );
         ui.addBubble(bubble);
       });
+      this.map.addObject(new H.map.Circle(
+        { lat: 34.023369, lng: -118.274239 },
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)', 
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)' 
+          }
+        }
+      ));
 
       const marker6 = new H.map.Marker({ lat: 34.018850, lng: -118.281026 }, { icon: fist });
       marker6.setData("<p>Assault <br> FIGUEROA & JEFFERSON </p>");
@@ -171,6 +213,17 @@ export class HereMapComponent implements OnInit {
         );
         ui.addBubble(bubble);
       });
+      this.map.addObject(new H.map.Circle(
+        { lat: 34.018850, lng: -118.281026 },
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)', 
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)' 
+          }
+        }
+      ));
       this.map.addObjects([marker1, marker2, marker3, marker4, marker5, marker6]);
      
       //let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));

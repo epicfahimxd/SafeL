@@ -6,12 +6,17 @@
   height: 50px;
   top:0px;
   left:0px;
+  padding-top: 20px;
+  padding-bottom: 0px;
 }
 ::ng-deep .searchbar-input {
-  background-color:white !important;
+   background-color:white !important;
 }
 #results {
   width: 100%;
   background-color: white;
-  padding: 16px;
+  padding: 1px;
+  text-align: center;
+  margin-bottom: 65px;
+  
 }

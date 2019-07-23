@@ -1,1 +1,6 @@
+<div id="nav-way" *ngIf="nav">
+<div (click)="close()" tappable>&times;</div>
+<h1>{{nav.Address.Label}}</h1>
+<button (click)="calcRoute()" tappable>Directions</button>
+</div>
 <div #map style="width: 100%; height: 100%;"></div>

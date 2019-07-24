@@ -59,6 +59,13 @@ export class HereMapComponent implements OnInit {
       var behavior = new H.mapevents.Behavior(mapEvents);
       var outerElement = document.createElement('div'),
         innerElement = document.createElement('div');
+      innerElement.innerHTML = '<img src="../assets/user.png" style="height: 35px;" />';
+      outerElement.appendChild(innerElement);
+      var domIcon = new H.map.DomIcon(outerElement, {});
+      // marker 6
+      const marker0 = new H.map.DomMarker({ lat: this.lat, lng: this.lng }, { icon: domIcon });
+      var outerElement = document.createElement('div'),
+        innerElement = document.createElement('div');
       innerElement.innerHTML = '<img src="../assets/theft.png" style="margin-left: -16px; margin-top:-16px;" />';
       outerElement.appendChild(innerElement);
       var domIcon = new H.map.DomIcon(outerElement, {});
@@ -269,7 +276,7 @@ export class HereMapComponent implements OnInit {
           }
         }
       ));
-      this.map.addObjects([marker1, marker2, marker3, marker4, marker6]);
+      this.map.addObjects([marker0, marker1, marker2, marker3, marker4, marker6]);
       //let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
     }, 100);
   }
@@ -279,20 +286,21 @@ export class HereMapComponent implements OnInit {
     const waypoint1 = `geo!${this.address.DisplayPosition.Latitude},${this.address.DisplayPosition.Longitude}`;
     var routingParameters = {
       // The routing mode:
-      'mode': 'fastest;car',
+      'mode': 'fastest;pedestrian',
       // The start point of the route:
       'waypoint0': waypoint0,
       // The end point of the route:
       'waypoint1': waypoint1,
       'representation': 'display',
       // avoid areas
-      'avoidareas': '34.027568,-118.284179;34.027266,-118.283707'
+      //'avoidareas': '34.023370,-118.274240;'
     };
     //Results
     // Define a callback function to process the routing response:
     var onResult = (result) => {
       this.nav = null;
-      if(this.routeLine){
+      this.map.removeObject(this.destMarker);
+      if (this.routeLine) {
         this.map.removeObject(this.routeLine);
         this.routeLine = null;
       }
@@ -318,20 +326,23 @@ export class HereMapComponent implements OnInit {
         endPoint = route.waypoint[1].mappedPosition;
         // Create a polyline to display the route:
         this.routeLine = new H.map.Polyline(linestring, {
-          style: { strokeColor: 'blue', lineWidth: 3 }
+          style: { strokeColor: '#505168', lineWidth: 3 }
         });
         // Create a marker for the start point:
         var startMarker = new H.map.Marker({
           lat: startPoint.latitude,
           lng: startPoint.longitude
         });
+        var icon = new H.map.Icon("../assets/destination.png", { size: { w: 25, h: 35 } });
         // Create a marker for the end point:
-        var endMarker = new H.map.Marker({
+        this.destMarker = new H.map.Marker({
           lat: endPoint.latitude,
           lng: endPoint.longitude
+        }, {
+          icon: icon
         });
         // Add the route polyline and the two markers to the map:
-        this.map.addObjects([this.routeLine]);
+        this.map.addObjects([this.destMarker,this.routeLine]);
         // Set the map's viewport to make the whole route visible:
         this.map.setCenter(
           { lat: this.lat, lng: this.lng },
@@ -356,17 +367,22 @@ export class HereMapComponent implements OnInit {
         this.ui.removeBubble(item);
       }
     }
-    if(this.routeLine){
+    if (this.routeLine) {
       this.map.removeObject(this.routeLine);
       this.routeLine = null;
     }
-    if(this.destMarker){
+    if (this.destMarker) {
       this.map.removeObject(this.destMarker);
     }
     this.address = address;
     this.nav = address;
-    var dest = new H.map.Icon("../assets/destination.png", { });
-    this.destMarker = new H.map.Marker({ lat: address.DisplayPosition.Latitude, lng: address.DisplayPosition.Longitude }, { icon: dest });
+    var outerElement = document.createElement('div'),
+      innerElement = document.createElement('div');
+    innerElement.innerHTML = '<img src="../assets/destination.png" style="height: 35px;" />';
+    outerElement.appendChild(innerElement);
+    var domIcon = new H.map.DomIcon(outerElement, {});
+    // marker 6
+    this.destMarker = new H.map.DomMarker({ lat: address.DisplayPosition.Latitude, lng: address.DisplayPosition.Longitude }, { icon: domIcon });
     this.map.addObjects([this.destMarker]);
     // zoom to marker
     this.map.setCenter(
@@ -374,8 +390,8 @@ export class HereMapComponent implements OnInit {
       5
     )
   }
-  close(){
-    if(this.routeLine){
+  close() {
+    if (this.routeLine) {
       this.map.removeObject(this.routeLine);
       this.routeLine = null;
     }

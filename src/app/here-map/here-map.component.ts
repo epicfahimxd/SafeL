@@ -367,7 +367,7 @@ export class HereMapComponent implements OnInit {
     innerElement.innerHTML = '<img src="../assets/fist.png" style="margin-left: -16px; margin-top:-16px;" />';
     outerElement.appendChild(innerElement);
     var domIcon = new H.map.DomIcon(outerElement, {});
-    // marker 8
+    // marker 9
     const marker9 = new H.map.DomMarker({ lat: 34.083554,lng:-118.343951 }, { icon: domIcon });
     marker9.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>700 N La Brea Ave</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Assault </p> </div>");
     marker9.addEventListener("tap", event => {

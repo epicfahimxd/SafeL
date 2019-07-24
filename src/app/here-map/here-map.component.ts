@@ -59,7 +59,7 @@ export class HereMapComponent implements OnInit {
       var behavior = new H.mapevents.Behavior(mapEvents);
       var outerElement = document.createElement('div'),
         innerElement = document.createElement('div');
-      innerElement.innerHTML = '<img src="../assets/user.png" style="height: 35px;" />';
+      innerElement.innerHTML = '<img src="../assets/icon2.png" style="height: 35px;" />';
       outerElement.appendChild(innerElement);
       var domIcon = new H.map.DomIcon(outerElement, {});
       // marker 6
@@ -276,7 +276,179 @@ export class HereMapComponent implements OnInit {
           }
         }
       ));
-      this.map.addObjects([marker0, marker1, marker2, marker3, marker4, marker6]);
+      var outerElement = document.createElement('div'),
+      innerElement = document.createElement('div');
+    innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
+    outerElement.appendChild(innerElement);
+    var domIcon = new H.map.DomIcon(outerElement, {});
+    // marker 3
+    const marker7 = new H.map.DomMarker({ lat: 34.047062, lng: -118.291741 }, { icon: domIcon });
+    marker7.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Pico and Vermont</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Theft </p> </div>");
+    marker7.addEventListener("tap", event => {
+      // get marker coords
+      var coord = this.map.screenToGeo(event.currentPointer.viewportX,
+        event.currentPointer.viewportY);
+      const bubble = new H.ui.InfoBubble(
+        coord,
+        {
+          content: event.target.getData()
+        }
+      );
+      // remove previous bubbles
+      if (this.ui.getBubbles().length > 0) {
+        for (let item of this.ui.getBubbles()) {
+          this.ui.removeBubble(item);
+        }
+      }
+      this.ui.addBubble(bubble);
+      // zoom to marker
+      this.map.setCenter(
+        { lat: 34.047062, lng: -118.291741 },
+        5
+      )
+    });
+    this.map.addObject(new H.map.Circle(
+      { lat: 34.047062, lng: -118.291741},
+      200,
+      {
+        style: {
+          strokeColor: 'rgba(290, 0, 0, 0.4)',
+          lineWidth: 1,
+          fillColor: 'rgba(290, 0, 0, 0.4)'
+        }
+      }
+    ));
+    
+    var outerElement = document.createElement('div'),
+        innerElement = document.createElement('div');
+      innerElement.innerHTML = '<img src="../assets/theft.png" style="margin-left: -16px; margin-top:-16px;" />';
+      outerElement.appendChild(innerElement);
+      var domIcon = new H.map.DomIcon(outerElement, {});
+      // marker 8
+      const marker8 = new H.map.DomMarker({ lat: 33.959134,lng:-118.351744 }, { icon: domIcon });
+      marker8.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>E Kelso ST & E Hillcrest Blvd</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Theft </p> </div>");
+      marker8.addEventListener("tap", event => {
+        // get marker coords
+        var coord = this.map.screenToGeo(event.currentPointer.viewportX,
+          event.currentPointer.viewportY);
+        const bubble = new H.ui.InfoBubble(
+          coord,
+          {
+            content: event.target.getData()
+          }
+        );
+        // remove previous bubbles
+        if (this.ui.getBubbles().length > 0) {
+          for (let item of this.ui.getBubbles()) {
+            this.ui.removeBubble(item);
+          }
+        }
+        this.ui.addBubble(bubble);
+        console.log('zoom');
+        // zoom to marker
+        this.map.setCenter(
+          { lat: 33.959134, lng:-118.351744 },
+          5
+        )
+      });
+      this.map.addObject(new H.map.Circle(
+        { lat: 33.959134, lng:-118.351744 },
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)',
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)'
+          }
+        }
+      ));
+      var outerElement = document.createElement('div'),
+      innerElement = document.createElement('div');
+    innerElement.innerHTML = '<img src="../assets/fist.png" style="margin-left: -16px; margin-top:-16px;" />';
+    outerElement.appendChild(innerElement);
+    var domIcon = new H.map.DomIcon(outerElement, {});
+    // marker 8
+    const marker9 = new H.map.DomMarker({ lat: 34.083554,lng:-118.343951 }, { icon: domIcon });
+    marker9.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>700 N La Brea Ave</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Assault </p> </div>");
+    marker9.addEventListener("tap", event => {
+      // get marker coords
+      var coord = this.map.screenToGeo(event.currentPointer.viewportX,
+        event.currentPointer.viewportY);
+      const bubble = new H.ui.InfoBubble(
+        coord,
+        {
+          content: event.target.getData()
+        }
+      );
+      // remove previous bubbles
+      if (this.ui.getBubbles().length > 0) {
+        for (let item of this.ui.getBubbles()) {
+          this.ui.removeBubble(item);
+        }
+      }
+      this.ui.addBubble(bubble);
+      console.log('zoom');
+      // zoom to marker
+      this.map.setCenter(
+        { lat: 34.083554,lng:-118.343951 },
+        5
+      )
+    });
+    this.map.addObject(new H.map.Circle(
+      { lat: 34.083554,lng:-118.343951 },
+      200,
+      {
+        style: {
+          strokeColor: 'rgba(290, 0, 0, 0.4)',
+          lineWidth: 1,
+          fillColor: 'rgba(290, 0, 0, 0.4)'
+        }
+      }
+    ));
+    var outerElement = document.createElement('div'),
+    innerElement = document.createElement('div');
+  innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
+  outerElement.appendChild(innerElement);
+  var domIcon = new H.map.DomIcon(outerElement, {});
+  // marker 8
+  const marker10 = new H.map.DomMarker({ lat: 33.955631,lng:-118.350675 }, { icon: domIcon });
+  marker10.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>800 E La Palma Dr</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
+  marker10.addEventListener("tap", event => {
+    // get marker coords
+    var coord = this.map.screenToGeo(event.currentPointer.viewportX,
+      event.currentPointer.viewportY);
+    const bubble = new H.ui.InfoBubble(
+      coord,
+      {
+        content: event.target.getData()
+      }
+    );
+    // remove previous bubbles
+    if (this.ui.getBubbles().length > 0) {
+      for (let item of this.ui.getBubbles()) {
+        this.ui.removeBubble(item);
+      }
+    }
+    this.ui.addBubble(bubble);
+    console.log('zoom');
+    // zoom to marker
+    this.map.setCenter(
+      { lat: 33.955631,lng:-118.350675  },
+      5
+    )
+  });
+  this.map.addObject(new H.map.Circle(
+    { lat: 33.955631,lng:-118.350675  },
+    200,
+    {
+      style: {
+        strokeColor: 'rgba(290, 0, 0, 0.4)',
+        lineWidth: 1,
+        fillColor: 'rgba(290, 0, 0, 0.4)'
+      }
+    }
+  ));
+      this.map.addObjects([marker0, marker1, marker2, marker3, marker4, marker6, marker7, marker8, marker9, marker10]);
       //let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
     }, 100);
   }
@@ -293,7 +465,7 @@ export class HereMapComponent implements OnInit {
       'waypoint1': waypoint1,
       'representation': 'display',
       // avoid areas
-      //'avoidareas': '34.023370,-118.274240;'
+      'avoidareas': '34.048062,-118.292558;34.046720,-118.290991!34.027862,-118.300266;34.024999,-118.298657' 
     };
     //Results
     // Define a callback function to process the routing response:

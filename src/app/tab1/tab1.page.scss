@@ -5,7 +5,14 @@ input {
 }
 ::ng-deep .searchbar-input {
   font-size: 17px !important;
+
+  box-shadow: 0px 5px 2px -2px rgba(198,198,198,.75);
 }
+ion-searchbar{
+  padding-bottom: 0px !important;
+
+}
+
 #search {
   position: fixed;
   z-index: 99999999999999999;
@@ -22,9 +29,42 @@ input {
 }
 #results {
   width: 100%;
-  background-color: white;
-  padding: 1px;
+  background-color: transparent;
+  padding-left: 16px;
+  padding-right: 16px;
   text-align: center;
   margin-bottom: 65px;
+  margin-top: -6px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+
+}
+
+#result {
+  background-color: white;
+  margin:0;
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+p{
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.sub{
+  color: rgb(163, 163, 163);
+  border-bottom: solid thin rgb(153,153,153);
+  padding-top: 0px;
   
+}
+
+.last-item{
+  border-bottom: none
+}
+
+.main {
+  padding-bottom: 0px;
 }

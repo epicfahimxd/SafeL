@@ -4,10 +4,11 @@
     </ion-searchbar>
     <div id="results" *ngIf = "results.length > 0 && notrouting">
 
-      <p *ngFor="let location of results" (click) = "navigate(location.address)">
-        {{location.address.houseNumber}} {{location.address.street}} {{location.address.city}},
-        {{location.address.state}} {{location.address.postalCode}}
-      </p>
+      <div id="result" *ngFor="let location of results;let last=last" [class.last-item] = "last" (click) = "navigate(location.address)">
+        <p class="main">{{location.address.houseNumber}} {{location.address.street}} </p>
+        <p class="sub">{{location.address.city}},
+          {{location.address.state}} {{location.address.postalCode}}</p>
+      </div>
     </div>
   </div>
   <here-map [address]="target" lat="34.022350" lng="-118.285118"></here-map>

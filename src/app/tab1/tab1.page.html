@@ -1,6 +1,6 @@
 <ion-content>
   <div id="search">
-    <ion-searchbar id="searchbor" (ionChange)="onChange($event)">
+    <ion-searchbar mode="ios" id="searchbor"  showCancelButton="focus" (ionChange)="onChange($event)" (ionBlur)="hide()" (ionCancel)="hide()">
     </ion-searchbar>
     <div id="results" *ngIf = "results.length > 0 && notrouting">
 
@@ -11,5 +11,8 @@
       </div>
     </div>
   </div>
-  <here-map [address]="target" lat="34.022350" lng="-118.285118"></here-map>
+
+    <here-map [address]="target" lat="34.022350" lng="-118.285118"></here-map>
+
+
 </ion-content>

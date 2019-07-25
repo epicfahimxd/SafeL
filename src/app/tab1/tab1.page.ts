@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -11,7 +13,7 @@ export class Tab1Page {
   target;
   notrouting = true;
   public myInput;
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private keyboard: Keyboard) { }
   onInput(val) {
   }
   navigate(location) {
@@ -45,5 +47,10 @@ export class Tab1Page {
         console.log(err);
         this.results;
       })
+  }
+
+  hide(){
+    console.log('close');
+    this.keyboard.hide();
   }
 };

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 declare var H: any;
 @Component({
   selector: 'here-map',
@@ -26,7 +27,7 @@ export class HereMapComponent implements OnInit {
   public destMarker;
   public routeLine;
   public ui;
-  public constructor() {
+  public constructor(private keyboard: Keyboard) {
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.address.currentValue) {
@@ -114,7 +115,7 @@ export class HereMapComponent implements OnInit {
       var domIcon = new H.map.DomIcon(outerElement, {});
       // marker 2
       const marker2 = new H.map.DomMarker({ lat: 34.021960, lng: -118.279970 }, { icon: domIcon });
-      marker2.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>3200 Block S Hoover ST</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Theft </p> </div>");
+      marker2.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>3200 Block S Hoover ST</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Assault </p> </div>");
       marker2.addEventListener("tap", event => {
         // get marker coords
         var coord = this.map.screenToGeo(event.currentPointer.viewportX,
@@ -157,7 +158,7 @@ export class HereMapComponent implements OnInit {
       var domIcon = new H.map.DomIcon(outerElement, {});
       // marker 3
       const marker3 = new H.map.DomMarker({ lat: 34.026270, lng: -118.298850 }, { icon: domIcon });
-      marker3.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Vermont Ave & 30TH ST</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Theft </p> </div>");
+      marker3.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Vermont Ave & 30TH ST</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
       marker3.addEventListener("tap", event => {
         // get marker coords
         var coord = this.map.screenToGeo(event.currentPointer.viewportX,
@@ -241,7 +242,7 @@ export class HereMapComponent implements OnInit {
       var domIcon = new H.map.DomIcon(outerElement, {});
       // marker 6
       const marker6 = new H.map.DomMarker({ lat: 34.018850, lng: -118.281026 }, { icon: domIcon });
-      marker6.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Figueroa & Jefferson</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Theft </p> </div>");
+      marker6.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Figueroa & Jefferson</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Assault </p> </div>");
       marker6.addEventListener("tap", event => {
         // get marker coords
         var coord = this.map.screenToGeo(event.currentPointer.viewportX,
@@ -281,9 +282,9 @@ export class HereMapComponent implements OnInit {
     innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
     outerElement.appendChild(innerElement);
     var domIcon = new H.map.DomIcon(outerElement, {});
-    // marker 3
+    // marker 7
     const marker7 = new H.map.DomMarker({ lat: 34.047062, lng: -118.291741 }, { icon: domIcon });
-    marker7.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Pico and Vermont</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Theft </p> </div>");
+    marker7.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Pico and Vermont</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
     marker7.addEventListener("tap", event => {
       // get marker coords
       var coord = this.map.screenToGeo(event.currentPointer.viewportX,
@@ -410,7 +411,7 @@ export class HereMapComponent implements OnInit {
   innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
   outerElement.appendChild(innerElement);
   var domIcon = new H.map.DomIcon(outerElement, {});
-  // marker 8
+  // marker 10
   const marker10 = new H.map.DomMarker({ lat: 33.955631,lng:-118.350675 }, { icon: domIcon });
   marker10.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>800 E La Palma Dr</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
   marker10.addEventListener("tap", event => {
@@ -450,6 +451,10 @@ export class HereMapComponent implements OnInit {
   ));
       this.map.addObjects([marker0, marker1, marker2, marker3, marker4, marker6, marker7, marker8, marker9, marker10]);
       //let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
+
+      this.map.addEventListener("tap", event => { 
+        this.keyboard.hide();
+      });
     }, 100);
   }
   //Route Finding

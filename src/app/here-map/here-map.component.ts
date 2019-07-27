@@ -30,6 +30,7 @@ export class HereMapComponent implements OnInit {
   public constructor(private keyboard: Keyboard) {
   }
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.address);
     if (changes.address.currentValue) {
       console.log('ready for navigation');
       this.checkRoute(changes.address.currentValue);
@@ -42,8 +43,10 @@ export class HereMapComponent implements OnInit {
   }
   public ngAfterViewInit() {
     setTimeout(() => {
+
       // Obtain the default map types from the platform object:
       this.defaultLayers = this.platform.createDefaultLayers();
+
       // Instantiate (and display) a map object:
       this.map = new H.Map(
         this.mapElement.nativeElement,
@@ -278,55 +281,55 @@ export class HereMapComponent implements OnInit {
         }
       ));
       var outerElement = document.createElement('div'),
-      innerElement = document.createElement('div');
-    innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
-    outerElement.appendChild(innerElement);
-    var domIcon = new H.map.DomIcon(outerElement, {});
-    // marker 7
-    const marker7 = new H.map.DomMarker({ lat: 34.047062, lng: -118.291741 }, { icon: domIcon });
-    marker7.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Pico and Vermont</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
-    marker7.addEventListener("tap", event => {
-      // get marker coords
-      var coord = this.map.screenToGeo(event.currentPointer.viewportX,
-        event.currentPointer.viewportY);
-      const bubble = new H.ui.InfoBubble(
-        coord,
-        {
-          content: event.target.getData()
+        innerElement = document.createElement('div');
+      innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
+      outerElement.appendChild(innerElement);
+      var domIcon = new H.map.DomIcon(outerElement, {});
+      // marker 7
+      const marker7 = new H.map.DomMarker({ lat: 34.047062, lng: -118.291741 }, { icon: domIcon });
+      marker7.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>Pico and Vermont</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
+      marker7.addEventListener("tap", event => {
+        // get marker coords
+        var coord = this.map.screenToGeo(event.currentPointer.viewportX,
+          event.currentPointer.viewportY);
+        const bubble = new H.ui.InfoBubble(
+          coord,
+          {
+            content: event.target.getData()
+          }
+        );
+        // remove previous bubbles
+        if (this.ui.getBubbles().length > 0) {
+          for (let item of this.ui.getBubbles()) {
+            this.ui.removeBubble(item);
+          }
         }
-      );
-      // remove previous bubbles
-      if (this.ui.getBubbles().length > 0) {
-        for (let item of this.ui.getBubbles()) {
-          this.ui.removeBubble(item);
-        }
-      }
-      this.ui.addBubble(bubble);
-      // zoom to marker
-      this.map.setCenter(
+        this.ui.addBubble(bubble);
+        // zoom to marker
+        this.map.setCenter(
+          { lat: 34.047062, lng: -118.291741 },
+          5
+        )
+      });
+      this.map.addObject(new H.map.Circle(
         { lat: 34.047062, lng: -118.291741 },
-        5
-      )
-    });
-    this.map.addObject(new H.map.Circle(
-      { lat: 34.047062, lng: -118.291741},
-      200,
-      {
-        style: {
-          strokeColor: 'rgba(290, 0, 0, 0.4)',
-          lineWidth: 1,
-          fillColor: 'rgba(290, 0, 0, 0.4)'
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)',
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)'
+          }
         }
-      }
-    ));
-    
-    var outerElement = document.createElement('div'),
+      ));
+
+      var outerElement = document.createElement('div'),
         innerElement = document.createElement('div');
       innerElement.innerHTML = '<img src="../assets/theft.png" style="margin-left: -16px; margin-top:-16px;" />';
       outerElement.appendChild(innerElement);
       var domIcon = new H.map.DomIcon(outerElement, {});
       // marker 8
-      const marker8 = new H.map.DomMarker({ lat: 33.959134,lng:-118.351744 }, { icon: domIcon });
+      const marker8 = new H.map.DomMarker({ lat: 33.959134, lng: -118.351744 }, { icon: domIcon });
       marker8.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>E Kelso ST & E Hillcrest Blvd</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Theft </p> </div>");
       marker8.addEventListener("tap", event => {
         // get marker coords
@@ -348,12 +351,12 @@ export class HereMapComponent implements OnInit {
         console.log('zoom');
         // zoom to marker
         this.map.setCenter(
-          { lat: 33.959134, lng:-118.351744 },
+          { lat: 33.959134, lng: -118.351744 },
           5
         )
       });
       this.map.addObject(new H.map.Circle(
-        { lat: 33.959134, lng:-118.351744 },
+        { lat: 33.959134, lng: -118.351744 },
         200,
         {
           style: {
@@ -364,98 +367,101 @@ export class HereMapComponent implements OnInit {
         }
       ));
       var outerElement = document.createElement('div'),
-      innerElement = document.createElement('div');
-    innerElement.innerHTML = '<img src="../assets/fist.png" style="margin-left: -16px; margin-top:-16px;" />';
-    outerElement.appendChild(innerElement);
-    var domIcon = new H.map.DomIcon(outerElement, {});
-    // marker 9
-    const marker9 = new H.map.DomMarker({ lat: 34.083554,lng:-118.343951 }, { icon: domIcon });
-    marker9.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>700 N La Brea Ave</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Assault </p> </div>");
-    marker9.addEventListener("tap", event => {
-      // get marker coords
-      var coord = this.map.screenToGeo(event.currentPointer.viewportX,
-        event.currentPointer.viewportY);
-      const bubble = new H.ui.InfoBubble(
-        coord,
+        innerElement = document.createElement('div');
+      innerElement.innerHTML = '<img src="../assets/fist.png" style="margin-left: -16px; margin-top:-16px;" />';
+      outerElement.appendChild(innerElement);
+      var domIcon = new H.map.DomIcon(outerElement, {});
+      // marker 9
+      const marker9 = new H.map.DomMarker({ lat: 34.083554, lng: -118.343951 }, { icon: domIcon });
+      marker9.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>700 N La Brea Ave</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Assault </p> </div>");
+      marker9.addEventListener("tap", event => {
+        // get marker coords
+        var coord = this.map.screenToGeo(event.currentPointer.viewportX,
+          event.currentPointer.viewportY);
+        const bubble = new H.ui.InfoBubble(
+          coord,
+          {
+            content: event.target.getData()
+          }
+        );
+        // remove previous bubbles
+        if (this.ui.getBubbles().length > 0) {
+          for (let item of this.ui.getBubbles()) {
+            this.ui.removeBubble(item);
+          }
+        }
+        this.ui.addBubble(bubble);
+        console.log('zoom');
+        // zoom to marker
+        this.map.setCenter(
+          { lat: 34.083554, lng: -118.343951 },
+          5
+        )
+      });
+      this.map.addObject(new H.map.Circle(
+        { lat: 34.083554, lng: -118.343951 },
+        200,
         {
-          content: event.target.getData()
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)',
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)'
+          }
         }
-      );
-      // remove previous bubbles
-      if (this.ui.getBubbles().length > 0) {
-        for (let item of this.ui.getBubbles()) {
-          this.ui.removeBubble(item);
+      ));
+      var outerElement = document.createElement('div'),
+        innerElement = document.createElement('div');
+      innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
+      outerElement.appendChild(innerElement);
+      var domIcon = new H.map.DomIcon(outerElement, {});
+      // marker 10
+      const marker10 = new H.map.DomMarker({ lat: 33.955631, lng: -118.350675 }, { icon: domIcon });
+      marker10.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>800 E La Palma Dr</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
+      marker10.addEventListener("tap", event => {
+        // get marker coords
+        var coord = this.map.screenToGeo(event.currentPointer.viewportX,
+          event.currentPointer.viewportY);
+        const bubble = new H.ui.InfoBubble(
+          coord,
+          {
+            content: event.target.getData()
+          }
+        );
+        // remove previous bubbles
+        if (this.ui.getBubbles().length > 0) {
+          for (let item of this.ui.getBubbles()) {
+            this.ui.removeBubble(item);
+          }
         }
-      }
-      this.ui.addBubble(bubble);
-      console.log('zoom');
-      // zoom to marker
-      this.map.setCenter(
-        { lat: 34.083554,lng:-118.343951 },
-        5
-      )
-    });
-    this.map.addObject(new H.map.Circle(
-      { lat: 34.083554,lng:-118.343951 },
-      200,
-      {
-        style: {
-          strokeColor: 'rgba(290, 0, 0, 0.4)',
-          lineWidth: 1,
-          fillColor: 'rgba(290, 0, 0, 0.4)'
+        this.ui.addBubble(bubble);
+        console.log('zoom');
+        // zoom to marker
+        this.map.setCenter(
+          { lat: 33.955631, lng: -118.350675 },
+          5
+        )
+      });
+      this.map.addObject(new H.map.Circle(
+        { lat: 33.955631, lng: -118.350675 },
+        200,
+        {
+          style: {
+            strokeColor: 'rgba(290, 0, 0, 0.4)',
+            lineWidth: 1,
+            fillColor: 'rgba(290, 0, 0, 0.4)'
+          }
         }
-      }
-    ));
-    var outerElement = document.createElement('div'),
-    innerElement = document.createElement('div');
-  innerElement.innerHTML = '<img src="../assets/bandit.png" style="margin-left: -16px; margin-top:-16px;" />';
-  outerElement.appendChild(innerElement);
-  var domIcon = new H.map.DomIcon(outerElement, {});
-  // marker 10
-  const marker10 = new H.map.DomMarker({ lat: 33.955631,lng:-118.350675 }, { icon: domIcon });
-  marker10.setData("<div style='width:200px; text-align:center; background-color: white;'> <p style='color:black; margin: 0;'>800 E La Palma Dr</p>  <p style='color:green; margin: 0;'> Frequent Crime Here: </p> <p style='color:black; margin: 0;'> Burglary </p> </div>");
-  marker10.addEventListener("tap", event => {
-    // get marker coords
-    var coord = this.map.screenToGeo(event.currentPointer.viewportX,
-      event.currentPointer.viewportY);
-    const bubble = new H.ui.InfoBubble(
-      coord,
-      {
-        content: event.target.getData()
-      }
-    );
-    // remove previous bubbles
-    if (this.ui.getBubbles().length > 0) {
-      for (let item of this.ui.getBubbles()) {
-        this.ui.removeBubble(item);
-      }
-    }
-    this.ui.addBubble(bubble);
-    console.log('zoom');
-    // zoom to marker
-    this.map.setCenter(
-      { lat: 33.955631,lng:-118.350675  },
-      5
-    )
-  });
-  this.map.addObject(new H.map.Circle(
-    { lat: 33.955631,lng:-118.350675  },
-    200,
-    {
-      style: {
-        strokeColor: 'rgba(290, 0, 0, 0.4)',
-        lineWidth: 1,
-        fillColor: 'rgba(290, 0, 0, 0.4)'
-      }
-    }
-  ));
+      ));
       this.map.addObjects([marker0, marker1, marker2, marker3, marker4, marker6, marker7, marker8, marker9, marker10]);
       //let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
 
-      this.map.addEventListener("tap", event => { 
+
+      this.map.addEventListener("tap", event => {
         this.keyboard.hide();
       });
     }, 100);
+
+
   }
   //Route Finding
   calcRoute() {
@@ -470,10 +476,11 @@ export class HereMapComponent implements OnInit {
       'waypoint1': waypoint1,
       'representation': 'display',
       // avoid areas
-      'avoidareas': '34.048062,-118.292558;34.046720,-118.290991!34.027862,-118.300266;34.024999,-118.298657' 
+      'avoidareas': '34.048062,-118.292558;34.046720,-118.290991!34.027862,-118.300266;34.024999,-118.298657!34.023049,-118.292930;34.021386,-118.291214!34.067781,-118.285422;34.066003,-118.283224!34.023798,-118.281897;34.020900,-118.27936!34.024794,-118.275563;34.022705,-118.273500!34.085383,-118.345381;34.082095,-118.342485!33.956706,-118.352063;33.955540,-118.350165!33.960408,-118.353013;33.958361,-118.35099'
     };
     //Results
     // Define a callback function to process the routing response:
+
     var onResult = (result) => {
       this.nav = null;
       this.map.removeObject(this.destMarker);
@@ -516,10 +523,10 @@ export class HereMapComponent implements OnInit {
           lat: endPoint.latitude,
           lng: endPoint.longitude
         }, {
-          icon: icon
-        });
+            icon: icon
+          });
         // Add the route polyline and the two markers to the map:
-        this.map.addObjects([this.destMarker,this.routeLine]);
+        this.map.addObjects([this.destMarker, this.routeLine]);
         // Set the map's viewport to make the whole route visible:
         this.map.setCenter(
           { lat: this.lat, lng: this.lng },
@@ -566,6 +573,7 @@ export class HereMapComponent implements OnInit {
       { lat: address.DisplayPosition.Latitude, lng: address.DisplayPosition.Longitude },
       5
     )
+
   }
   close() {
     if (this.routeLine) {
@@ -580,4 +588,20 @@ export class HereMapComponent implements OnInit {
       5
     )
   }
+
+  // functionCancel() {
+  //   console.log
+  //   if (this.routeLine) {
+  //     this.map.removeObject(this.routeLine);
+  //     this.routeLine = null;
+  //   }
+    
+  //   this.map.removeObject(this.destMarker);
+  //   this.destMarker = null;
+  //   this.nav = null;
+  //   this.map.setCenter(
+  //     { lat: this.lat, lng: this.lng },
+  //     5
+  //   )
+  // }
 }

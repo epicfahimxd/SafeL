@@ -13,8 +13,11 @@ export class Tab1Page {
   target;
   notrouting = true;
   public myInput;
-  constructor(public http: HttpClient, private keyboard: Keyboard) { }
+  constructor(public http: HttpClient, private keyboard: Keyboard) {
+
+  }
   onInput(val) {
+
   }
   navigate(location) {
     this.notrouting = false;

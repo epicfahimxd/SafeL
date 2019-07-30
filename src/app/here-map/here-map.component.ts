@@ -45,7 +45,10 @@ export class HereMapComponent implements OnInit {
     setTimeout(() => {
 
       // Obtain the default map types from the platform object:
-      this.defaultLayers = this.platform.createDefaultLayers();
+      this.defaultLayers = this.platform.createDefaultLayers({
+        tileSize: devicePixelRatio > 1 ? 512 : 256,
+        ppi: devicePixelRatio > 1 ? 320 : 72
+      });
 
       // Instantiate (and display) a map object:
       this.map = new H.Map(
@@ -54,7 +57,8 @@ export class HereMapComponent implements OnInit {
         {
           zoom: 14,
           tilt: 45,
-          center: { lat: this.lat, lng: this.lng }
+          center: { lat: this.lat, lng: this.lng },
+          pixelRatio: Math.min(devicePixelRatio, 2) 
         });
       // add a resize listener to make sure that the map occupies the whole container
       window.addEventListener('resize', () => this.map.getViewPort().resize());
@@ -595,7 +599,7 @@ export class HereMapComponent implements OnInit {
   //     this.map.removeObject(this.routeLine);
   //     this.routeLine = null;
   //   }
-    
+
   //   this.map.removeObject(this.destMarker);
   //   this.destMarker = null;
   //   this.nav = null;
